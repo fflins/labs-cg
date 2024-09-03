@@ -10,8 +10,7 @@ public class DesenhoPrimitivas extends JFrame {
     private JLabel x0Label, y0Label, x1Label, y1Label, rLabel, aLabel, bLabel; // Labels para os campos
     private JComboBox<String> algoritmoComboBox;
     private JPanel inputPanel;
-    private Painel pixelPanel;
-    private final int n = 31; // Tamanho da matriz n x n
+    private Painel centralPanel;
 
     public DesenhoPrimitivas() {
         setTitle("Desenho Primitivas");
@@ -64,7 +63,7 @@ public class DesenhoPrimitivas extends JFrame {
 
         add(inputPanel, BorderLayout.NORTH);
 
-        pixelPanel = new Painel(n);
+        centralPanel = new Painel(700, 500);
 
         // Painel centralizado
         JPanel centerPanel = new JPanel();
@@ -73,7 +72,7 @@ public class DesenhoPrimitivas extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.gridx = 0;
         gbc.gridy = 0;
-        centerPanel.add(pixelPanel, gbc);
+        centerPanel.add(centralPanel, gbc);
 
         add(centerPanel, BorderLayout.CENTER);
 
@@ -104,25 +103,25 @@ public class DesenhoPrimitivas extends JFrame {
                 else {r = Integer.parseInt(rField.getText());}
                 switch (algoritmoSelecionado) {
                     case "DDA":
-                        Dda.DDALine(x0, y0, x1, y1, pixelPanel);
+                        Dda.DDALine(x0, y0, x1, y1, centralPanel);
                         break;
                     case "Bresenham":
-                        PontoMedio.BresenhamLine(x0, y0, x1, y1, pixelPanel);
+                        Bresenham.BresenhamLine(x0, y0, x1, y1, centralPanel);
                     break;
                     case "Ponto Médio Circunferência":
-                        if (r > 0) Circulos.circunferenciaPontoMedio(r, pixelPanel);
+                        if (r > 0) Circulos.midPointCircle(r, centralPanel);
                         else JOptionPane.showMessageDialog(null, "Por favor, insira um valor de raio válido.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
                     break;
                     case "Equação Circunferência":
-                        if (r > 0) Circulos.circunferenciaPolinomial(r,pixelPanel);
+                        if (r > 0) Circulos.circleEquation(r,centralPanel);
                         else JOptionPane.showMessageDialog(null, "Por favor, insira um valor de raio válido.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
                     break;
                     case "Método Trigonométrico Circunferência":
-                        if (r > 0) Circulos.circunferenciaTrigonometrica(r, pixelPanel);
+                        if (r > 0) Circulos.trigonometricCircle(r, centralPanel);
                         else JOptionPane.showMessageDialog(null, "Por favor, insira um valor de raio válido.", "Erro de Entrada", JOptionPane.ERROR_MESSAGE);
                     break;
                     case "Ponto Médio Elipse":
-                       ElipsePontoMedio.elipsePontoMedio(0,0, a , b, pixelPanel);
+                       ElipsePontoMedio.MidpointEllipse(a,b, centralPanel);
                     break;
                     default:
                     break;
@@ -136,7 +135,7 @@ public class DesenhoPrimitivas extends JFrame {
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pixelPanel.cleanPanel();
+                centralPanel.clearPanel();
             }
         });
 

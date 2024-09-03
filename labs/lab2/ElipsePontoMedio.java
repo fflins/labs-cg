@@ -2,57 +2,50 @@ package lab2;
 
 public class ElipsePontoMedio {
 
-  // Método para desenhar uma elipse usando o método do ponto médio
-  public static void elipsePontoMedio(int xCenter, int yCenter, int Rx, int Ry, Painel painel) {
-      int Rx2 = Rx * Rx;
-      int Ry2 = Ry * Ry;
-      int twoRx2 = 2 * Rx2;
-      int twoRy2 = 2 * Ry2;
-      int p;
-      int x = 0;
-      int y = Ry;
-      int px = 0;
-      int py = twoRx2 * y;
-
-
-      pontoElipse(xCenter, yCenter, x, y, painel);
-
-      // Região 1
-      p = (int) Math.round(Ry2 - (Rx2 * Ry) + (0.25 * Rx2));
-      while (px < py) {
-          x++;
-          px += twoRy2;
-          if (p < 0) {
-              p += Ry2 + px;
-          } else {
-              y--;
-              py -= twoRx2;
-              p += Ry2 + px - py;
-          }
-          pontoElipse(xCenter, yCenter, x, y, painel);
-      }
-
-      // Região 2
-      p = (int) Math.round(Ry2 * (x + 0.5) * (x + 0.5) + Rx2 * (y - 1) * (y - 1) - Rx2 * Ry2);
-      while (y > 0) {
-          y--;
-          py -= twoRx2;
-          if (p > 0) {
-              p += Rx2 - py;
-          } else {
-              x++;
-              px += twoRy2;
-              p += Rx2 - py + px;
-          }
-          pontoElipse(xCenter, yCenter, x, y, painel);
-      }
-  }
+    public static void MidpointEllipse(int a, int b, Painel painel) {
+        int x, y;
+        float d1, d2;
+    
+        // Valores iniciais
+        x = 0;
+        y = b;
+        d1 = b * b - a * a * b + a * a / 4.0f;
+        EllipsePoints(x, y, painel); // Simetria de ordem 4
+    
+        // Região 1
+        while (a * a * (y - 0.5) > b * b * (x + 1)) {
+            if (d1 < 0) {
+                d1 = d1 + b * b * (2 * x + 3);
+                x++;
+            } else {
+                d1 = d1 + b * b * (2 * x + 3) + a * a * (-2 * y + 2);
+                x++;
+                y--;
+            }
+            EllipsePoints(x, y, painel);
+        }
+    
+        // Região 2
+        d2 = b * b * (x + 0.5f) * (x + 0.5f) + a * a * (y - 1) * (y - 1) - a * a * b * b;
+        while (y > 0) {
+            if (d2 < 0) {
+                d2 = d2 + b * b * (2 * x + 2) + a * a * (-2 * y + 3);
+                x++;
+                y--;
+            } else {
+                d2 = d2 + a * a * (-2 * y + 3);
+                y--;
+            }
+            EllipsePoints(x, y, painel);
+        }
+    }
+    
 
   // Método para realizar espelhamento dos pontos da elipse
-  private static void pontoElipse(int xCenter, int yCenter, int x, int y, Painel painel) {
-      painel.updatePixel( xCenter + x, yCenter + y);
-      painel.updatePixel( xCenter - x, yCenter + y);
-      painel.updatePixel( xCenter + x, yCenter - y);
-      painel.updatePixel( xCenter - x, yCenter - y);
-  }
+  public static void EllipsePoints(int x, int y, Painel painel) {
+    painel.updatePixel(x, y);
+    painel.updatePixel(-x, y);
+    painel.updatePixel(x, -y);
+    painel.updatePixel(-x, -y);
+}
 }

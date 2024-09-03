@@ -1,6 +1,7 @@
 package lab2;
 public class Dda {
-  public static int round(float n) { 
+
+  public static int round(float n) { //Função de arredondamento
     if (n - (int) n < 0.5) 
       return (int) n; 
     return (int) (n + 1); 

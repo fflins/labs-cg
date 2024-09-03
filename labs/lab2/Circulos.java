@@ -2,29 +2,33 @@ package lab2;
 
 public class Circulos {
 
-    // Método para desenhar a circunferência usando o algoritmo de ponto médio
-    public static void circunferenciaPontoMedio(int raio, Painel p) {
-        int x = 0;
-        int y = raio;
-        int d = 1 - raio;
-
-
-        ponto_Circulo(p, x, y);
-
+    public static void midPointCircle(int r, Painel p) {
+        int x, y, d;
+    
+        // Valores iniciais
+        x = 0;
+        y = r;
+        d = 1 - r;
+        CirclePoints(x, y, p);
+    
         while (y > x) {
             if (d < 0) {
-                d += 2 * x + 3;
+                // Selecione E
+                d = d + 2 * x + 3;
+                x++;
             } else {
-                d += 2 * (x - y) + 5;
+                // Selecione SE
+                d = d + 2 * (x - y) + 5;
+                x++;
                 y--;
             }
-            x++;
-            ponto_Circulo(p, x, y);
+            CirclePoints(x, y, p);
         }
     }
+    
 
     // Método para desenhar a circunferência usando o método trigonométrico
-    public static void circunferenciaTrigonometrica(int raio, Painel p) {
+    public static void trigonometricCircle(int raio, Painel p) {
         double theta = 0;
         boolean converted = false;
         final double passo = 1.0;
@@ -41,7 +45,7 @@ public class Circulos {
             int y = (int) Math.round(raio * Math.sin(radianos));
 
             // Plotar os pontos 
-            ponto_Circulo(p, x, y);
+           CirclePoints(x, y, p);
             theta += passo;
 
             // Condição de parada: círculo completo quando o ângulo alcança 360 graus
@@ -52,7 +56,7 @@ public class Circulos {
     }
 
     // Método para desenhar a circunferência usando o método Polinomial
-    public static void circunferenciaPolinomial(int raio, Painel p) {
+    public static void circleEquation(int raio, Painel p) {
         // Inicialização das variáveis
         int x = 0;
         int i = 1;
@@ -64,7 +68,7 @@ public class Circulos {
             int y = (int) Math.round(Math.sqrt(raio * raio - x * x));
 
             // Plotar os pontos determinados pela simetria
-            ponto_Circulo(p, x, y);
+            CirclePoints(x , y, p);
 
             // Incrementar x
             x += i;
@@ -73,7 +77,7 @@ public class Circulos {
 
 
     // Método para realizar espelhamento dos pontos da circunferência
-    private static void ponto_Circulo(Painel p, int x, int y) {
+    private static void CirclePoints(int x, int y, Painel p) {
         p.updatePixel( x, y);
         p.updatePixel(y, x);
         p.updatePixel(y, -x);;
