@@ -12,19 +12,19 @@ public class Dda {
     int dx = x1 - x0; 
     int dy = y1 - y0; 
 
-    int step; 
+    int maior; 
 
     if (Math.abs(dx) > Math.abs(dy)) 
-        step = Math.abs(dx); 
+        maior = Math.abs(dx); 
     else
-        step = Math.abs(dy); 
+        maior = Math.abs(dy); 
 
-    float x_incr = (float) dx / step; 
-    float y_incr = (float) dy / step; 
+    float x_incr = (float) dx / maior; 
+    float y_incr = (float) dy / maior; 
     float x = x0;
     float y = y0;
     
-    for (int i = 0; i <= step; i++) {
+    for (int i = 0; i <= maior; i++) {
         painel.updatePixel(Math.round(x), Math.round(y));  
         x += x_incr;
         y += y_incr;

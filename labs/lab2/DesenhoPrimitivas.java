@@ -16,7 +16,7 @@ public class DesenhoPrimitivas extends JFrame {
         setTitle("Desenho Primitivas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        setSize(1024, 780);
+        setSize(1600, 900);
 
         // Painel de entrada
         inputPanel = new JPanel();
@@ -106,7 +106,7 @@ public class DesenhoPrimitivas extends JFrame {
                         Dda.DDALine(x0, y0, x1, y1, centralPanel);
                         break;
                     case "Bresenham":
-                        Bresenham.BresenhamLine(x0, y0, x1, y1, centralPanel);
+                        Bresenham.bresenhamLine(x0, y0, x1, y1, centralPanel);
                     break;
                     case "Ponto Médio Circunferência":
                         if (r > 0) Circulos.midPointCircle(r, centralPanel);

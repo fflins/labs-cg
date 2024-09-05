@@ -12,7 +12,7 @@ public class Circulos {
         CirclePoints(x, y, p);
     
         while (y > x) {
-            if (d < 0) {
+            if (d <= 0) {
                 // Selecione E
                 d = d + 2 * x + 3;
                 x++;
